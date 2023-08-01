@@ -10,7 +10,7 @@ import com.juan.fehome.R
 
 // Set of Material typography styles to start with
 val bespokeFamily = FontFamily(
-    Font(R.font.raleway, FontWeight.Normal)
+    Font(R.font.bespoke, FontWeight.Normal)
 )
 val Typography = Typography(
     defaultFontFamily = bespokeFamily,

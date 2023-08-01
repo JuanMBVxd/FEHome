@@ -79,29 +79,7 @@ private fun ContentNewestHeroes(){
     }
 }
 
-@Composable
-private fun CommingSoon(){
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(70.dp)
-            .padding(start = 6.dp, end = 6.dp)
-            .clip(shape = RoundedCornerShape(10.dp)),
-        color = MaterialTheme.colors.primary,
-    ) {
-        Column(
-            modifier = Modifier.padding(10.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            // Contenido de la sección 1
-            Text(
-                text = "Comming Soon",
-                color = MaterialTheme.colors.onPrimary,
-                fontSize = 25.sp,
-            )
-        }
-    }
-}
+
 
 @Composable
 private fun RowLegendary(){
@@ -147,6 +125,30 @@ private fun RowNewHeroes(){
 }
 
 @Composable
+private fun CommingSoon(){
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(70.dp)
+            .padding(start = 6.dp, end = 6.dp)
+            .clip(shape = RoundedCornerShape(10.dp)),
+        color = MaterialTheme.colors.primary,
+    ) {
+        Column(
+            modifier = Modifier.padding(10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // Contenido de la sección 1
+            Text(
+                text = "Comming Soon",
+                color = MaterialTheme.colors.onPrimary,
+                fontSize = 25.sp,
+            )
+        }
+    }
+}
+
+@Composable
 fun NewestHeroButton(imageResId: Int, circleColor: Color) {
     Box(
         modifier = Modifier
@@ -171,11 +173,7 @@ fun NewestHeroButton(imageResId: Int, circleColor: Color) {
 private fun TopAppBar() {
     TopAppBar(
         title = { Text(text = "FEHome", modifier = Modifier.padding(10.dp)) },
-        actions = {
-            IconButton(onClick = { }) {
-                Icon(imageVector = Icons.Filled.Search, contentDescription = "Buscar")
-            }
-        }
+        actions = {}
     )
 }
 
