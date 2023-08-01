@@ -18,7 +18,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.juan.fehome.R
+import com.juan.fehome.navigation.AppScreens
 import com.juan.fehome.ui.theme.FEHomeTheme
 
 /**
@@ -27,15 +30,15 @@ import com.juan.fehome.ui.theme.FEHomeTheme
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainScreen(){
+fun MainScreen(navController: NavController){
     FEHomeTheme {
-        ContentMainScreen()
+        ContentMainScreen(navController)
     }
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-private fun ContentMainScreen(){
+private fun ContentMainScreen(navController: NavController){
     Scaffold (
         topBar = {TopAppBar()}
     ){
@@ -44,14 +47,14 @@ private fun ContentMainScreen(){
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(10.dp) // Esto espacea cada seccion
         ){
-            ContentNewestHeroes()
+            ContentNewestHeroes(navController)
             CommingSoon()
         }
     }
 }
 
 @Composable
-private fun ContentNewestHeroes(){
+private fun ContentNewestHeroes(navController: NavController){
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -70,9 +73,9 @@ private fun ContentNewestHeroes(){
                 color = MaterialTheme.colors.onPrimary,
                 fontSize = 25.sp,
             )
-            RowLegendary()
-            RowResplandent()
-            RowNewHeroes()
+            RowLegendary(navController)
+            RowResplandent(navController)
+            RowNewHeroes(navController)
         }
     }
 }
@@ -80,7 +83,7 @@ private fun ContentNewestHeroes(){
 
 
 @Composable
-private fun RowLegendary(){
+private fun RowLegendary(navController: NavController){
     Row(
         modifier = Modifier.padding(top = 10.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -90,12 +93,12 @@ private fun RowLegendary(){
             color = MaterialTheme.colors.onPrimary,
             fontSize = 18.sp,
         )
-        NewestHeroButton(R.drawable.img_hero_myrrh_guardian_dragon, Color.Blue)
+        NewestHeroButton(R.drawable.img_hero_myrrh_guardian_dragon, Color.Blue, navController)
     }
 }
 
 @Composable
-private fun RowResplandent(){
+private fun RowResplandent(navController: NavController){
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -104,21 +107,21 @@ private fun RowResplandent(){
             color = MaterialTheme.colors.onPrimary,
             fontSize = 18.sp,
         )
-        NewestHeroButton(R.drawable.img_hero_matthew_r, Color.Gray)
+        NewestHeroButton(R.drawable.img_hero_matthew_r, Color.Gray, navController)
     }
 }
 
 @Composable
-private fun RowNewHeroes(){
+private fun RowNewHeroes(navController: NavController){
     Row(
         modifier = Modifier.padding(3.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        NewestHeroButton(R.drawable.img_hero_edelgard_sun_empresses, Color.Red)
-        NewestHeroButton(R.drawable.img_hero_claude_tropical_trouble, Color.Blue)
-        NewestHeroButton(R.drawable.img_hero_dimitri_sky_blue_lion, Color.Green)
-        NewestHeroButton(R.drawable.img_hero_micaiah_wavecrest_maiden, Color.Gray)
-        NewestHeroButton(R.drawable.img_hero_elincia_seaside_queen, Color.Blue)
+        NewestHeroButton(R.drawable.img_hero_edelgard_sun_empresses, Color.Red, navController)
+        NewestHeroButton(R.drawable.img_hero_claude_tropical_trouble, Color.Blue, navController)
+        NewestHeroButton(R.drawable.img_hero_dimitri_sky_blue_lion, Color.Green, navController)
+        NewestHeroButton(R.drawable.img_hero_micaiah_wavecrest_maiden, Color.Gray, navController)
+        NewestHeroButton(R.drawable.img_hero_elincia_seaside_queen, Color.Blue, navController)
     }
 }
 
@@ -147,14 +150,16 @@ private fun CommingSoon(){
 }
 
 @Composable
-fun NewestHeroButton(imageResId: Int, circleColor: Color) {
+fun NewestHeroButton(imageResId: Int, circleColor: Color, navController: NavController) {
     Box(
         modifier = Modifier
             .size(60.dp)
             .padding(5.dp) // Aplica el padding al contenedor Box
             .clip(shape = CircleShape)
             .border(2.dp, circleColor, CircleShape)
-            .clickable { },
+            .clickable {
+                navController.navigate(AppScreens.HeroInfoScreen.route)
+            },
         contentAlignment = Alignment.Center
     ) {
         Image(
@@ -178,5 +183,6 @@ private fun TopAppBar() {
 @Preview(showBackground = true)
 @Composable
 fun MainScreenPreview(){
-    MainScreen()
+    val navController = rememberNavController()
+    MainScreen(navController)
 }

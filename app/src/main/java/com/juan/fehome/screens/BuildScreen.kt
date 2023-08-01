@@ -19,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.juan.fehome.R
 import com.juan.fehome.ui.theme.FEHomeTheme
 
@@ -27,17 +29,17 @@ import com.juan.fehome.ui.theme.FEHomeTheme
  */
 
 @Composable
-fun BuildScreen(){
+fun BuildScreen(navController: NavController){
     FEHomeTheme{
-        ContentBuildScreen()
+        ContentBuildScreen(navController)
     }
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-private fun ContentBuildScreen(){
+private fun ContentBuildScreen(navController: NavController){
     Scaffold(
-        topBar = {TopAppBar()}
+        topBar = {TopAppBar(navController)}
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -59,11 +61,14 @@ private fun BackgroundHero(){
 }
 
 @Composable
-private fun TopAppBar() {
+private fun TopAppBar(navController: NavController) {
     TopAppBar(
         title = { Text(text = "Hero Details") },
         navigationIcon = {
-            IconButton(onClick = {  }) {
+            IconButton(onClick = {
+                // aqui mero
+                navController.popBackStack()
+            }) {
                 Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Buscar")
             }
         }
@@ -73,5 +78,6 @@ private fun TopAppBar() {
 @Preview(showBackground = true)
 @Composable
 fun BuildScreenPreview(){
-    BuildScreen()
+    val navController = rememberNavController()
+    BuildScreen(navController)
 }

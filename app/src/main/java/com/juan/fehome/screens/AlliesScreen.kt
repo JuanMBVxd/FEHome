@@ -28,7 +28,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.juan.fehome.R
+import com.juan.fehome.navigation.AppScreens
 import com.juan.fehome.ui.theme.FEHomeTheme
 
 /**
@@ -36,18 +39,18 @@ import com.juan.fehome.ui.theme.FEHomeTheme
  */
 
 @Composable
-fun AlliesScreen(){
+fun AlliesScreen(navController: NavController){
     FEHomeTheme {
-        ContentAlliesScreen()
+        ContentAlliesScreen(navController)
     }
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-private fun ContentAlliesScreen(){
+private fun ContentAlliesScreen(navController: NavController){
     Scaffold(
         topBar = {TopAppBar()},
-        bottomBar = { BottomAlliesBar()}
+        bottomBar = { BottomAlliesBar(navController)}
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -92,21 +95,24 @@ private fun TopAppBar() {
 }
 
 @Composable
-private fun BottomAlliesBar() {
+private fun BottomAlliesBar(navController: NavController) {
     BottomAppBar(
         modifier = Modifier
-            .padding(6.dp)
+            .padding(start = 6.dp, top = 6.dp, end = 6.dp, bottom = 66.dp)
             .clip(shape = RoundedCornerShape(10.dp)),
     ) {
         // Botones con imágenes en la BottomAppBar
-        IconButton(onClick = { /* Acción del botón de Inicio */ }) {
+        IconButton(onClick = {
+        }) {
             Icon(
                 painter = painterResource(R.drawable.ic_delete_24dp),
                 contentDescription = "Delete",
                 modifier = Modifier.padding(start = 120.dp)
             )
         }
-        IconButton(onClick = {  }) {
+        IconButton(onClick = {
+            navController.navigate(route = AppScreens.BuildScreen.route)
+        }) {
             Icon(
                 painter = painterResource(R.drawable.ic_add_24dp),
                 contentDescription = "Add",
@@ -119,5 +125,6 @@ private fun BottomAlliesBar() {
 @Preview(showBackground = true)
 @Composable
 fun AlliesScreenPreview(){
-    AlliesScreen()
+    val navController = rememberNavController()
+    AlliesScreen(navController)
 }

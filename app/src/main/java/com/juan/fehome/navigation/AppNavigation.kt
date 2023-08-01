@@ -17,19 +17,19 @@ fun AppNavigation(navController: NavHostController){
         startDestination = AppScreens.MainScreen.route
     ){
         composable(AppScreens.MainScreen.route){
-            MainScreen()
+            MainScreen(navController)
         }
         composable(AppScreens.AlliesScreen.route){
-            AlliesScreen()
+            AlliesScreen(navController)
         }
         composable(AppScreens.InfoScreen.route){
-            InfoScreen()
+            InfoScreen(navController)
         }
         composable(AppScreens.BuildScreen.route){
-            BuildScreen()
+            BuildScreen(navController)
         }
         composable(AppScreens.HeroInfoScreen.route){
-            HeroInfoScreen()
+            HeroInfoScreen(navController)
         }
     }
 }

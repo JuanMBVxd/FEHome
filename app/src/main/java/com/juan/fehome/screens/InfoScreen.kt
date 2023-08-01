@@ -11,13 +11,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 /**
  * Created by JuanMBV
  */
 
 @Composable
-fun InfoScreen(){
+fun InfoScreen(navController: NavController){
     TopAppBar()
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -39,5 +41,6 @@ private fun TopAppBar() {
 @Preview(showBackground = true)
 @Composable
 fun InfoScreenPreview(){
-    InfoScreen()
+    val navController = rememberNavController()
+    InfoScreen(navController)
 }

@@ -23,6 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.juan.fehome.ui.theme.FEHomeTheme
 
 /**
@@ -32,17 +34,17 @@ import com.juan.fehome.ui.theme.FEHomeTheme
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun HeroInfoScreen(){
+fun HeroInfoScreen(navController: NavController){
     FEHomeTheme {
-        ContentHeroInfoScreen()
+        ContentHeroInfoScreen(navController)
     }
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-private fun ContentHeroInfoScreen(){
+private fun ContentHeroInfoScreen(navController: NavController){
     Scaffold (
-        topBar = {TopAppBar()}
+        topBar = {TopAppBar(navController)}
     ){
         // Columna para dividir la pantalla en secciones
         Column(
@@ -77,11 +79,13 @@ private fun HeroInfo(){
 }
 
 @Composable
-private fun TopAppBar() {
+private fun TopAppBar(navController: NavController) {
     TopAppBar(
         title = { Text(text = "Hero") },
         navigationIcon = {
-            IconButton(onClick = { }) {
+            IconButton(onClick = {
+                navController.popBackStack()
+            }) {
                 Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Buscar")
             }
         }
@@ -92,5 +96,6 @@ private fun TopAppBar() {
 @Preview(showBackground = true)
 @Composable
 fun HeroInfoScreenPreview(){
-    HeroInfoScreen()
+    val navController = rememberNavController()
+    HeroInfoScreen(navController)
 }
