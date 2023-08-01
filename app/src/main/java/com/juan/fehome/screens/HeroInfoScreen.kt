@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -26,7 +27,7 @@ import com.juan.fehome.ui.theme.FEHomeTheme
 
 /**
  * Created by JuanMBV
- * Pantalla pendiente
+ * Pantalla pendien
  */
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -77,7 +78,7 @@ private fun HeroInfo(){
 
 @Composable
 private fun TopAppBar() {
-    androidx.compose.material.TopAppBar(
+    TopAppBar(
         title = { Text(text = "Hero") },
         navigationIcon = {
             IconButton(onClick = { }) {

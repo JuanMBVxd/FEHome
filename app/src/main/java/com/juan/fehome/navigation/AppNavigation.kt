@@ -25,5 +25,11 @@ fun AppNavigation(navController: NavHostController){
         composable(AppScreens.InfoScreen.route){
             InfoScreen()
         }
+        composable(AppScreens.BuildScreen.route){
+            BuildScreen()
+        }
+        composable(AppScreens.HeroInfoScreen.route){
+            HeroInfoScreen()
+        }
     }
 }

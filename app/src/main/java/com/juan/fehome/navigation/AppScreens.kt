@@ -10,4 +10,6 @@ sealed class AppScreens(val icon: Int, val title: String, val route: String){
     object MainScreen: AppScreens(R.drawable.baseline_home_24, "Home","main_screen")
     object AlliesScreen: AppScreens(R.drawable.ic_allies, "Allies", "allies_screen")
     object InfoScreen: AppScreens(R.drawable.ic_help, "Info", "info_screen")
+    object BuildScreen: AppScreens(0, "Build", "build_screen")
+    object HeroInfoScreen: AppScreens(0, "Hero Info", "hero_info_screen")
 }

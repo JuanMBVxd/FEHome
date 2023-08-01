@@ -106,7 +106,7 @@ private fun BottomAlliesBar() {
                 modifier = Modifier.padding(start = 120.dp)
             )
         }
-        IconButton(onClick = { /* Acción del botón de Favorito */ }) {
+        IconButton(onClick = {  }) {
             Icon(
                 painter = painterResource(R.drawable.ic_add_24dp),
                 contentDescription = "Add",
