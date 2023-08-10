@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.juan.fehome.DataBase.AppDatabase
 import com.juan.fehome.navigation.AppNavigation
 import com.juan.fehome.navigation.AppScreens
 import com.juan.fehome.ui.theme.FEHomeTheme
@@ -29,6 +30,7 @@ import com.juan.fehome.ui.theme.White
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppDatabase.getDatabase(this)
         setContent {
             FEHomeTheme {
                 // A surface container using the 'background' color from the theme
