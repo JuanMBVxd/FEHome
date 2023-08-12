@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,11 +15,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonColors
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Checkbox
+import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
@@ -29,10 +35,10 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,9 +55,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.juan.fehome.DataBase.DAO.HeroDao
+import com.juan.fehome.DAO.HeroDao
 import com.juan.fehome.R
 import com.juan.fehome.ui.theme.FEHomeTheme
+
 /**
  * Created by JuanMBV
  */
@@ -66,6 +73,8 @@ fun BuildScreen(navController: NavController){
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 private fun ContentBuildScreen(navController: NavController){
+    val heroes = HeroDao.heroes
+
     // Estado booleano para controlar el switch
     var isSummonSupport by remember { mutableStateOf(false) }
 
@@ -108,8 +117,7 @@ private fun BuildHero(isSummonSupport: Boolean, onSwitchChanged: (Boolean) -> Un
             horizontalAlignment = Alignment.Start
         ) {
             // Contenido de la sección 1
-
-            HeroSelection()
+            CountrySelection()
         }
         Column(
             modifier = Modifier.padding(10.dp),
@@ -120,13 +128,13 @@ private fun BuildHero(isSummonSupport: Boolean, onSwitchChanged: (Boolean) -> Un
                 color = MaterialTheme.colors.onPrimary,
                 fontSize = 25.sp,
             )
-            SwitchSummonSupport(isSummonSupport, onSwitchChanged) // Pasar el estado del Switch al Composable de los Switches
+            SwitchComponent(isSummonSupport, onSwitchChanged) // Pasar el estado del Switch al Composable de los Switches
         }
     }
 }
 
 @Composable
-fun SwitchSummonSupport(isSummonSupport: Boolean, onSwitchChanged: (Boolean) -> Unit) {
+fun SwitchComponent(isSummonSupport: Boolean, onSwitchChanged: (Boolean) -> Unit) {
     Row(
         modifier = Modifier.padding(3.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -144,9 +152,13 @@ fun SwitchSummonSupport(isSummonSupport: Boolean, onSwitchChanged: (Boolean) -> 
  * ================================================================================================
  */
 @Composable
-fun HeroSelection() {
-    val heroNames = HeroDao.getHeroNames() // Obtener la lista de nombres de héroes
-
+fun CountrySelection() {
+    val countryList = listOf(
+        "United state",
+        "Australia",
+        "Japan",
+        "India",
+    )
     val text = remember { mutableStateOf("Hero") } // initial value
     val isOpen = remember { mutableStateOf(false) } // initial value
     val openCloseOfDropDownList: (Boolean) -> Unit = {
@@ -155,19 +167,17 @@ fun HeroSelection() {
     val userSelectedString: (String) -> Unit = {
         text.value = it
     }
-
     Box {
         Column {
             OutlinedTextField(
                 value = text.value,
                 onValueChange = { text.value = it },
                 label = { Text(text = "") },
-                modifier = Modifier.width(150.dp),
-
+                modifier = Modifier.width(150.dp)
             )
             DropDownList(
                 requestToOpen = isOpen.value,
-                heroNames = heroNames,
+                list = countryList,
                 openCloseOfDropDownList,
                 userSelectedString
             )
@@ -187,7 +197,7 @@ fun HeroSelection() {
 @Composable
 fun DropDownList(
     requestToOpen: Boolean = false,
-    heroNames: List<String>,
+    list: List<String>,
     request: (Boolean) -> Unit,
     selectedString: (String) -> Unit
 ) {
@@ -196,15 +206,15 @@ fun DropDownList(
         expanded = requestToOpen,
         onDismissRequest = { request(false) },
     ) {
-        heroNames.forEach { name ->
+        list.forEach {
             DropdownMenuItem(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
                     request(false)
-                    selectedString(name)
+                    selectedString(it)
                 }
             ) {
-                Text(name, modifier = Modifier
+                Text(it, modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 16.dp),
                     textAlign = TextAlign.Start)
@@ -225,7 +235,7 @@ private fun BottomButtons(navController: NavController){
             .fillMaxWidth()
             .height(57.dp)
             .padding(start = 6.dp, end = 6.dp, top = 2.dp)
-        ,
+            ,
         color = Color.Transparent
     ) {
         Column(
