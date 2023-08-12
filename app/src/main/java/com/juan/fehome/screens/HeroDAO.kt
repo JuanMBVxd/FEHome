@@ -1,4 +1,4 @@
-package com.juan.fehome.DataBase.DAO
+package com.juan.fehome.screens
 
 object HeroDao {
     val heroes = mapOf(

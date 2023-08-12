@@ -1,36 +1,37 @@
 package com.juan.fehome
 
 import android.annotation.SuppressLint
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.juan.fehome.DataBase.AppDatabase
+import com.juan.fehome.DataBase.DataSeeder
+import com.juan.fehome.DataBase.SQLiteHelper
+import com.juan.fehome.DataBase.service.HeroStatsService
 import com.juan.fehome.navigation.AppNavigation
 import com.juan.fehome.navigation.AppScreens
-import com.juan.fehome.ui.theme.FEHomeTheme
 import com.juan.fehome.navigation.AppScreens.*
-import com.juan.fehome.ui.theme.White
+import com.juan.fehome.ui.theme.FEHomeTheme
 
 class MainActivity : ComponentActivity() {
+    lateinit var fehomeDBHelper: SQLiteHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AppDatabase.getDatabase(this)
+
+        fehomeDBHelper = SQLiteHelper(this)
+        CreateDataBase(fehomeDBHelper)
+
         setContent {
             FEHomeTheme {
                 // A surface container using the 'background' color from the theme
@@ -99,6 +100,12 @@ fun NavegacionInferior(
             }
         }
     }
+}
+
+fun CreateDataBase(fehomeDBHelper: SQLiteHelper){
+    HeroStatsService(fehomeDBHelper)
+
+
 }
 
 @Preview(showBackground = true)
