@@ -1,5 +1,6 @@
 package com.juan.fehome.navigation
 
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -11,7 +12,7 @@ import com.juan.fehome.screens.*
  */
 
 @Composable
-fun AppNavigation(navController: NavHostController){
+fun AppNavigation(navController: NavHostController, context: Context){
     NavHost(
         navController = navController,
         startDestination = AppScreens.MainScreen.route
@@ -26,7 +27,7 @@ fun AppNavigation(navController: NavHostController){
             InfoScreen(navController)
         }
         composable(AppScreens.BuildScreen.route){
-            BuildScreen(navController)
+            BuildScreen(navController, context)
         }
         composable(AppScreens.HeroInfoScreen.route){
             HeroInfoScreen(navController)

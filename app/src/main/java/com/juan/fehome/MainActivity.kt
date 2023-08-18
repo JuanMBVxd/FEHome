@@ -1,6 +1,7 @@
 package com.juan.fehome
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,12 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.juan.fehome.DataBase.DataSeeder
 import com.juan.fehome.DataBase.SQLiteHelper
 import com.juan.fehome.DataBase.service.HeroStatsService
 import com.juan.fehome.navigation.AppNavigation
@@ -29,6 +28,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val context: Context = this
+
         fehomeDBHelper = SQLiteHelper(this)
         CreateDataBase(fehomeDBHelper)
 
@@ -39,7 +40,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    PantallaPrincipal()
+                    PantallaPrincipal(context)
                 }
             }
         }
@@ -48,7 +49,7 @@ class MainActivity : ComponentActivity() {
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun PantallaPrincipal(){
+fun PantallaPrincipal(context: Context){
     val navController = rememberNavController()
     val scaffoldState = rememberScaffoldState()
 
@@ -62,7 +63,7 @@ fun PantallaPrincipal(){
         scaffoldState = scaffoldState,
         bottomBar = {NavegacionInferior(navController, navigation_item)}
     ) {
-        AppNavigation(navController)
+        AppNavigation(navController, context)
     }
 }
 
@@ -104,12 +105,11 @@ fun NavegacionInferior(
 
 fun CreateDataBase(fehomeDBHelper: SQLiteHelper){
     HeroStatsService(fehomeDBHelper)
-
-
 }
-
-@Preview(showBackground = true)
+/**
+ * @Preview(showBackground = true)
 @Composable
 fun PantallaPrincipalPreview(){
-    PantallaPrincipal()
-}
+val context = LocalContext.current
+PantallaPrincipal(context)
+}*/
