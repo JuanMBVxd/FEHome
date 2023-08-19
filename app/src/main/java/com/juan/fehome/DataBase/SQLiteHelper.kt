@@ -134,13 +134,13 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, "fehome.db", nul
         val tableBuildBase = "CREATE TABLE build_base "+
                 "(id_build_base INTEGER NOT NULL,\n" +
                 "  hero_id INTEGER NOT NULL,\n" +
-                "  weapon_prf_id INTEGER NOT NULL,\n" +
-                "  weapon_no_prf_id INTEGER NOT NULL,\n" +
-                "  assist_id INTEGER NOT NULL,\n" +
-                "  special_id INTEGER NOT NULL,\n" +
-                "  passive_a_id INTEGER NOT NULL,\n" +
-                "  passive_b_id INTEGER NOT NULL,\n" +
-                "  passive_c_id INTEGER NOT NULL,\n" +
+                "  weapon_prf_id INTEGER,\n" +
+                "  weapon_no_prf_id INTEGER,\n" +
+                "  assist_id INTEGER,\n" +
+                "  special_id INTEGER,\n" +
+                "  passive_a_id INTEGER,\n" +
+                "  passive_b_id INTEGER,\n" +
+                "  passive_c_id INTEGER,\n" +
                 "  CONSTRAINT pk_id_build_base PRIMARY KEY (id_build_base),\n" +
                 "  FOREIGN KEY (hero_id) REFERENCES heroes(id_heroes),\n" +
                 "  FOREIGN KEY (weapon_prf_id) REFERENCES weapons(id_weapon),\n" +

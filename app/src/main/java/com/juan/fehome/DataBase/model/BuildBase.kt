@@ -3,13 +3,13 @@ package com.juan.fehome.DataBase.model
 class BuildBase(
     private var idBuildBase: Int,
     private var heroId: Int,
-    private var weaponPrfId: Int,
-    private var weaponNoPrfId: Int,
-    private var assistId: Int,
-    private var specialId: Int,
-    private var passiveAId: Int,
-    private var passiveBId: Int,
-    private var passiveCId: Int
+    private var weaponPrfId: Int?,
+    private var weaponNoPrfId: Int?,
+    private var assistId: Int?,
+    private var specialId: Int?,
+    private var passiveAId: Int?,
+    private var passiveBId: Int?,
+    private var passiveCId: Int?
 ) {
     constructor(): this(
         0, 0, 0, 0, 0, 0, 0, 0, 0
