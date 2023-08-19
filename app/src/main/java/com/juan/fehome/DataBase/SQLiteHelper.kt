@@ -100,6 +100,7 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, "fehome.db", nul
                 "  weapon_type TEXT NOT NULL,\n" +
                 "  color TEXT NOT NULL,\n" +
                 "  move_type TEXT NOT NULL,\n" +
+                "  max_dracoflowers INTEGER NOT NULL, \n" +
                 "  hero_stats_id INTEGER NOT NULL,\n" +
                 "  image_thumbnail TEXT NOT NULL,\n" +
                 "  image_full1 TEXT NOT NULL,\n" +

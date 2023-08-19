@@ -8,24 +8,10 @@ import com.juan.fehome.DataBase.model.HeroStats
 import java.util.ArrayList
 
 class HeroStatsService(private val fehomeDBHelper: SQLiteHelper) {
-    fun InsertHeroStats(
-        id_hero_stats: Int,
-        hp_base: Int,
-        atk_base: Int,
-        spd_base: Int,
-        def_base: Int,
-        res_base: Int,
-        hp_boon: Int,
-        atk_boon: Int,
-        spd_boon: Int,
-        def_boon: Int,
-        res_boon: Int,
-        hp_bane: Int,
-        atk_bane: Int,
-        spd_bane: Int,
-        def_bane:Int,
-        res_bane: Int
-    ): Long{
+    fun InsertHeroStats(id_hero_stats: Int, hp_base: Int, atk_base: Int, spd_base: Int, def_base: Int,
+                        res_base: Int, hp_boon: Int, atk_boon: Int, spd_boon: Int, def_boon: Int,
+                        res_boon: Int, hp_bane: Int, atk_bane: Int, spd_bane: Int, def_bane:Int,
+                        res_bane: Int): Long{
 
         // Get a writeable database instance
 
@@ -76,26 +62,37 @@ class HeroStatsService(private val fehomeDBHelper: SQLiteHelper) {
         return status
     }
 
-    /**Falta un metodo SELECT*/
+    fun SelectHeroStats(id: Int): HeroStats{
+        val db = fehomeDBHelper.writableDatabase
+        val heroStats = HeroStats()
 
-    fun UpgradeHeroStats(
-        id_hero_stats: Int,
-        hp_base: Int,
-        atk_base: Int,
-        spd_base: Int,
-        def_base: Int,
-        res_base: Int,
-        hp_boon: Int,
-        atk_boon: Int,
-        spd_boon: Int,
-        def_boon: Int,
-        res_boon: Int,
-        hp_bane: Int,
-        atk_bane: Int,
-        spd_bane: Int,
-        def_bane:Int,
-        res_bane: Int
-    ): Int {
+        db.rawQuery("SELECT * FROM hero_stats WHERE id=?", null).use { cursor ->
+            while (cursor.moveToFirst()){
+                heroStats.setIdHeroStats(cursor.getInt(0))
+                heroStats.setHpBase(cursor.getInt(1))
+                heroStats.setAtkBase(cursor.getInt(2))
+                heroStats.setSpdBase(cursor.getInt(3))
+                heroStats.setDefBase(cursor.getInt(4))
+                heroStats.setResBase(cursor.getInt(5))
+                heroStats.setHpBoon(cursor.getInt(6))
+                heroStats.setAtkBoon(cursor.getInt(7))
+                heroStats.setSpdBoon(cursor.getInt(8))
+                heroStats.setDefBoon(cursor.getInt(9))
+                heroStats.setResBoon(cursor.getInt(10))
+                heroStats.setHpBane(cursor.getInt(11))
+                heroStats.setAtkBane(cursor.getInt(12))
+                heroStats.setSpdBane(cursor.getInt(13))
+                heroStats.setDefBane(cursor.getInt(14))
+                heroStats.setResBane(cursor.getInt(15))
+            }
+        }
+        return heroStats
+    }
+
+    fun UpgradeHeroStats(id_hero_stats: Int, hp_base: Int, atk_base: Int, spd_base: Int, def_base: Int,
+                         res_base: Int, hp_boon: Int, atk_boon: Int, spd_boon: Int, def_boon: Int,
+                         res_boon: Int, hp_bane: Int, atk_bane: Int, spd_bane: Int, def_bane:Int,
+                         res_bane: Int): Int {
         // Get a writeable database instance
         val db = fehomeDBHelper.writableDatabase
 
@@ -171,7 +168,4 @@ class HeroStatsService(private val fehomeDBHelper: SQLiteHelper) {
         }
         return heroStatsList
     }
-
-    /**Faltaria hacer el SELECT, y despues de eso, corregir todos los models y hacer
-     * un Service para cada uno de los models*/
 }
