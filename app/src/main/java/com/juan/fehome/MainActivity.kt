@@ -20,7 +20,6 @@ import com.juan.fehome.DataBase.SQLiteHelper
 import com.juan.fehome.DataBase.service.HeroStatsService
 import com.juan.fehome.navigation.AppNavigation
 import com.juan.fehome.navigation.AppScreens
-import com.juan.fehome.navigation.AppScreens.*
 import com.juan.fehome.ui.theme.FEHomeTheme
 
 class MainActivity : ComponentActivity() {
@@ -54,16 +53,33 @@ fun PantallaPrincipal(context: Context){
     val scaffoldState = rememberScaffoldState()
 
     val navigation_item = listOf(
-        MainScreen,
-        AlliesScreen,
-        InfoScreen
+        AppScreens.MainScreen,
+        AppScreens.AlliesScreen,
+        AppScreens.InfoScreen
     )
 
-    Scaffold(
-        scaffoldState = scaffoldState,
-        bottomBar = {NavegacionInferior(navController, navigation_item)}
+    // Obtener la ruta actual
+    val currentRoute = currentRoute(navController = navController)
+
+    // Verificar si la ruta actual requiere mostrar el menú inferior
+    val shouldShowBottomMenu = navigation_item.any { it.route == currentRoute }
+
+    // A surface container using the 'background' color from the theme
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colors.background
     ) {
-        AppNavigation(navController, context)
+        // Mostrar o no mostrar el Scaffold según la condición
+        if (shouldShowBottomMenu) {
+            Scaffold(
+                scaffoldState = scaffoldState,
+                bottomBar = { NavegacionInferior(navController, navigation_item) }
+            ) {
+                AppNavigation(navController, context)
+            }
+        } else {
+            AppNavigation(navController, context)
+        }
     }
 }
 
@@ -106,6 +122,7 @@ fun NavegacionInferior(
 fun CreateDataBase(fehomeDBHelper: SQLiteHelper){
     HeroStatsService(fehomeDBHelper)
 }
+
 /**
  * @Preview(showBackground = true)
 @Composable

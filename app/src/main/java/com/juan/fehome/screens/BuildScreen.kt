@@ -45,6 +45,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.UiMode
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -86,7 +87,6 @@ private fun ContentBuildScreen(navController: NavController, context: Context){
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
             ){
                 //Contenido
                 BuildHero(isSummonSupport, onSwitchChanged = { isSummonSupport = it }, context, text, { newValue -> text =
@@ -110,8 +110,8 @@ private fun BuildHero(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .height(690.dp)
-            .padding(start = 6.dp, end = 6.dp, top = 400.dp)
+            .height(585.dp)
+            .padding(start = 6.dp, end = 6.dp, top = 300.dp)
             .clip(shape = RoundedCornerShape(10.dp)),
         color = MaterialTheme.colors.primary,
     ) {
@@ -503,13 +503,13 @@ private fun BottomButtons(navController: NavController){
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .height(57.dp)
-            .padding(start = 6.dp, end = 6.dp, top = 2.dp)
+            .height(47.dp)
+            .padding(start = 6.dp, end = 6.dp)
         ,
         color = Color.Transparent
     ) {
         Column(
-            modifier = Modifier.padding(10.dp),
+            modifier = Modifier.padding(5.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
@@ -604,7 +604,7 @@ private fun TopAppBar(navController: NavController) {
     )
 }
 
-@Preview(showBackground = true)
+@Preview(showSystemUi = true )
 @Composable
 fun BuildScreenPreview(parameters: BuildScreenPreviewParameters = BuildScreenPreviewParameters(rememberNavController(), LocalContext.current)) {
     BuildScreen(parameters.navController, parameters.context)

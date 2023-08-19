@@ -119,9 +119,9 @@ class HeroStatsService(private val fehomeDBHelper: SQLiteHelper) {
             // REALIZA LA OPERACION DE ACTUALIZAR PRODUCTO
             rowsAffected = db.update("hero_stats", values, "id_hero_stats=?", arrayOf(id_hero_stats.toString()))
             // Update successful, log the number of rows affected
-            Log.d("Update_Product", "Product updated successfully. Rows affected: $rowsAffected")
+            Log.d("Update_HeroStats", "HeroStats updated successfully. Rows affected: $rowsAffected")
         }catch (e: Exception){
-            Log.d("Error updating product", e.toString())
+            Log.d("Error updating heroStats", e.toString())
         }finally {
             db.close()
         }
